@@ -1,5 +1,11 @@
 {
   "devDependencies": {
     "@types/node": "^24.2.1"
+  },
+  "dependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "tsc": "^2.0.4",
+    "typescript": "^5.9.2"
   }
 }

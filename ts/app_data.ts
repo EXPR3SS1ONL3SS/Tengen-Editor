@@ -1,43 +1,10 @@
-import * as mega from './modules/mega'
-import * as fs from 'fs'
+import * as mega from './modules/mega.ts'
 import { EventEmitter } from 'events'
-import { devNull } from 'os'
-import { assert, log, warn } from 'console'
+import {log} from 'console'
 let emitter = new EventEmitter()
 let file_max_time = 1000 * 60 * 60 * 24 * 31 * 6
 
 
-
-
-
-const udata_base = {
-    username: '',
-    password: '',
-    last_used: Date.now(),
-    theme_data: {
-        uintcf: {
-            background: '#305d8dff',
-            files: 'Default'
-        },
-        font: {
-            face: 'JetBrains Mono',
-            size: 13.3,
-        }
-    },
-    editor: {
-        data: {
-            /** 
-             * tabs: ["workspace/.."] -- workspace: workspace name, folder or file path, must end at some point with a valid extension
-            */
-            tabs: [],
-            curtab: 0,
-            workspaces: {
-
-            }
-        }
-    }
-    
-}
 
 const storage = await new mega.Storage({
     "email": "computersciencegeek4l@gmail.com",
@@ -105,7 +72,7 @@ emitter.on('login', (user:string,pass:string)=> {
 
 
 while (!username && !password) {
-    if (username && password) {
+    if (username && username) {
         emitter.emit('login', username, password)
         break
     }
