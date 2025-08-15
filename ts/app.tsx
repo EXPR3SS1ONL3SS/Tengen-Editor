@@ -1,6 +1,7 @@
 import React, * as react from 'react'; import * as rDom from 'react-dom';
 import * as client from 'react-dom/client'
 import * as boot from 'react-bootstrap';
+ 
 const container = document.getElementById('tengen-editor-toot') as HTMLElement;
 const root = client.createRoot(container);
 const el = {
@@ -10,15 +11,10 @@ const el = {
 }
 
 el.setup.push(()=> {
-  let card = makeCard({title:"tufts",text:"is","btntext":"gay"})
-  let tool = boot.Tooltip({
-    title: "he/'s also a catboy!",
-    placement: "top",
-    onMouseEnter: (e: React.MouseEvent) => {
-      
-    },
-  })
-  tool
+  let card = makeCard({})
+  const tool = boot.Tooltip({title:"tooltip", content:"text"})
+  
+  
   root.render(card)
 })
 
