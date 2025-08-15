@@ -11,6 +11,14 @@ const el = {
 
 el.setup.push(()=> {
   let card = makeCard({title:"tufts",text:"is","btntext":"gay"})
+  let tool = boot.Tooltip({
+    title: "he/'s also a catboy!",
+    placement: "top",
+    onMouseEnter: (e: React.MouseEvent) => {
+      
+    },
+  })
+  tool
   root.render(card)
 })
 
