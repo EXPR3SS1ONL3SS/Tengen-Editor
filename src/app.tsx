@@ -1,8 +1,7 @@
 import React, * as react from 'react'; import * as rDom from 'react-dom';
 import * as client from 'react-dom/client'
 import * as boot from 'react-bootstrap';
-import { exec, execFile } from 'child_process';
-import { execPath } from 'process';
+
  
 const container = document.getElementById('tengen-editor-toot') as HTMLElement;
 const root = client.createRoot(container);
@@ -13,11 +12,10 @@ const el = {
 }
 
 el.setup.push(()=> {
-  let card = makeCard({})
-  const tool = boot.Tooltip({title:"tooltip", content:"text"})
-  
-  
-  root.render(card)
+  makeCard({id:"card1"})
+  let card1 = document.getElementById("card1")
+  let tool = boot.Tooltip({title:'str', content:'str'})
+  root.render(tool)
 })
 
 function setupApp() {
@@ -32,17 +30,18 @@ function renderApp() {
   }
   return true;
 }
-function makeCard(data: Record<string, string>) {
-  return (
-    <div className='card' style={{width: "18rem"}}>
-      <img src='...' alt='...' className='card-img-top'></img>
-      <div className="card-body">
-        <h5 className="card-title">${data.title || "this"}</h5>
-        <p className="card-text">${data.text || "is a"}</p>
-        <a href="#" className="btn btn-primary">{data.btntext || "placeholder"}</a>
-        </div>
-    </div>
-  )
+function makeCard(data: Record<string, string>): void {
+  boot.Card({
+    "id": (data.id || "card"+(Math.random()*(1000*document.getElementsByClassName("bootstrap.card").length)).toString()),
+    "children": [
+      <img src='...' alt='...' className='bootstrap.card-img-top'></img>,
+      <div className='bootstrap.card-body'>
+        <h5 className='bootstrap.card-title'>${data.title || "this"}</h5>
+        <p className='bootstrap.card-text'>${data.text || "is a"}</p>
+        <a href='#' className='btn btn-primary'>${data.bntext || 'placeholder'}</a>
+      </div>
+    ]
+  })
 }
 
 
