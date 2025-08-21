@@ -12,6 +12,7 @@ type TokenType =
 | "lparen" | "rparen" | "lbrace" | "rbrace" | "comma" | "colon" | "arrow"
 | "plus" | "minus" | "star" | "slash" | "percent"
 | "assign" | "eq" | "neq" | "lt" | "lte" | "gt" | "gte"
+| "scope_global" | "scope_readonly" | "scope_local"
 | "newline" | "eof";
 
 type Tok = { type: TokenType; lexeme: string; line: number; col: number };
@@ -58,7 +59,7 @@ if (c === "-" ) {
   if (src[i+1] === ">") { i+=2; col+=2; push("arrow","->"); continue; }
   next(); push("minus","-"); continue;
 }
-if (c === "*" ) { next(); push("star","*"); continue; }
+
 if (c === "/" ) { next(); push("slash","/"); continue; }
 if (c === "%" ) { next(); push("percent","%"); continue; }
 if (c === "=" ) {
@@ -132,7 +133,7 @@ type Expr =
 ;
 
 type Stmt =
-| { kind:"Let"; name:string; init: Expr }
+| { kind:"Let"; name:string; init: Expr; scope?: "global" | "readonly" | "local"; type?: TypeName }
 | { kind:"ExprStmt"; expr: Expr }
 | { kind:"Return"; expr?: Expr }
 | { kind:"If"; cond: Expr; then: Stmt[]; elseBranch?: Stmt[] }
@@ -337,7 +338,6 @@ this.eat("identifier"); // struct
 const name = this.eat("identifier", "struct name").lexeme;
 this.skipNewlines();
 
-
 const fields: { name: string; type?: TypeName }[] = [];
 while (!(this.at("identifier") && this.toks[this.i].lexeme === "end")) {
   const fieldName = this.eat("identifier", "field name").lexeme;
@@ -368,6 +368,10 @@ case "until": return this.parseUntil();
 case "output": return this.parseOutput();
 }
 }
+// Check for scoped variable declarations
+if (t.type === "scope_global" || t.type === "scope_readonly" || t.type === "scope_local") {
+return this.parseScopedVar();
+}
 const expr = this.parseExpr();
 return { kind:"ExprStmt", expr };
 }
@@ -377,7 +381,32 @@ this.i++; // let
 const name = this.eat("identifier","binding name").lexeme;
 this.eat("assign","=");
 const init = this.parseExpr();
-return { kind:"Let", name, init };
+return { kind:"Let", name, init, scope: "local" };
+}
+
+private parseScopedVar(): Stmt {
+const scopeTok = this.cur();
+this.i++; // consume scope token
+
+
+const scope = scopeTok.type === "scope_global" ? "global" :
+              scopeTok.type === "scope_readonly" ? "readonly" : "local";
+
+// Optional type annotation
+let type: TypeName | undefined;
+if (this.at("identifier") && !this.at("identifier", 1) || (this.at("identifier", 1) && this.toks[this.i + 1].type === "assign")) {
+  // No type, just name = value
+} else {
+  type = this.eat("identifier", "variable type").lexeme as TypeName;
+}
+
+const name = this.eat("identifier", "variable name").lexeme;
+this.eat("assign", "=");
+const init = this.parseExpr();
+
+return { kind:"Let", name, init, scope, type };
+
+
 }
 
 private parseReturn(): Stmt {
@@ -550,7 +579,12 @@ case "Binary": return `(${emitExpr(e.left)} ${e.op} ${emitExpr(e.right)})`;
 
 function emitStmt(s: Stmt, indent: string): string {
 switch (s.kind) {
-case "Let": return `${indent}let ${s.name} = ${emitExpr(s.init)};`;
+case "Let": {
+const typeAnnotation = s.type ? `: ${mapType(s.type)}` : "";
+const keyword = s.scope === "readonly" ? "const" :
+s.scope === "global" ? "var" : "let";
+return `${indent}${keyword} ${s.name}${typeAnnotation} = ${emitExpr(s.init)};`;
+}
 case "ExprStmt": return `${indent}${emitExpr(s.expr)};`;
 case "Return": return s.expr ? `${indent}return ${emitExpr(s.expr)};` : `${indent}return;`;
 case "Print": return `${indent}console.log(${emitExpr(s.expr)});`;
