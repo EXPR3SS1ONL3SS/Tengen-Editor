@@ -11,6 +11,7 @@
     "bootstrap": "^5.3.7",
     "react-bootstrap": "^2.10.10",
     "three": "^0.179.1",
+    "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
     "typescript": "^5.9.2",
     "zod": "^4.0.17"
