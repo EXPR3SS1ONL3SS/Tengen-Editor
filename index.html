@@ -3,15 +3,18 @@
     <head>
         <script src="src/format.js"></script>
         <script src="src/player.js"></script>
-        <script src="src/main.jsx"></script>
-        <script src="src/break_eternity.global.js"></script>
+        <script src="src/main.js"></script>
+        <script src="src/break_eternity.js"></script>
+        <script src="src/temp.js"></script>
     </head>
     <body onload="loadGame()">
         <dialog class="notify-primary notify status" id="notify"></dialog>
         <p id="copy"></p>
-        <app>
+        <app class="app" id="app">
             <app-component class="container" id="frames">
-                
+                <frame class="frame-main" id="frame_1">
+                    <p id="luck">text</p>
+                </frame>
             </app-component>
         </app>
     </body>

@@ -6,7 +6,7 @@ const SAVE_KEY = "test-save";
 
 const getInitialPlayerData = () => {
     var data = {
-        luck: D(1),
+        luck: new Decimal(1),
         offline: {
             active: true,
             time: 0,
@@ -151,6 +151,7 @@ function loadGame(start=true) {
     let save = localStorage.getItem(SAVE_KEY)
     load(save)
     if (start) {
+        setupHtml()
         setInterval(loop, 45) // 45 FPS
         
     }
