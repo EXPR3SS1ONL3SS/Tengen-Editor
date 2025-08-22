@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="src/app.tsx"></script>
-        <script src="src/extra/extras_globals.ts"></script>
-        <script src="src/script_editor.tsx"></script>
-        <script src="src/app_data.ts"></script>
-        <script type="module" src="src/extra/helpers.tsx"></script>
+        <script src="src/format.js"></script>
+        <script src="src/player.js"></script>
+        <script src="src/main.jsx"></script>
+        <script src="src/break_eternity.global.js"></script>
     </head>
-    <body>
-        <div id="tengen-editor-root" style="width: 100%; height: 100%;">
-            text
-        </div>
+    <body onload="loadGame()">
+        <dialog class="notify-primary notify status" id="notify"></dialog>
+        <p id="copy"></p>
+        <app>
+            <app-component class="container" id="frames">
+                
+            </app-component>
+        </app>
     </body>
