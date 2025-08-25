@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="src/format.js"></script>
         <script src="src/player.js"></script>
         <script src="src/main.js"></script>
         <script src="src/break_eternity.js"></script>
         <script src="src/temp.js"></script>
+        <script src="src/Vue.js"></script>
+        <script src="cdn.tailwindcss.com"></script>
+        <script src="src/core/currency.js"></script>
+        <script src="src/core/constants.js"></script>
+        <script src="src/core/dev.js"></script>
+        <script src="src/core/storage/serializer.js"></script>
+        <script src="src/core/storage/storage.js"></script>
+        <script src="src/core/storage/player.js"></script>
     </head>
-    <body onload="loadGame()">
+    <body onload="loadGame()" class="h-full bg-slate-950 text-slate-100">
         <dialog class="notify-primary notify status" id="notify"></dialog>
         <p id="copy"></p>
         <app class="app" id="app">
-            <app-component class="container" id="frames">
-                <frame class="frame-main" id="frame_1">
+            <app-component class="container" id="tabs">
+                <tab class="tab-main" id="tab_1">
                     <p id="luck">text</p>
-                </frame>
+                </tab>
             </app-component>
         </app>
     </body>

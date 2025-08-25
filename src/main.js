@@ -1,3 +1,17 @@
+import * as Vue from "vue";
+
+var app = Vue.createApp({
+    data: {
+
+    },
+    methods: {
+        loadGame(start=true) {
+            
+        }
+    }
+})
+
+
 var date = Date.now(), diff = 0; player = {};
 
 var el = {
@@ -6,7 +20,11 @@ var el = {
 }
 
 el.update.main = () => {
-    tmp.el.luck.innerHTML = player.luck.format()
+    tmp.el.luck.innerHTML = (
+        <stat-display id="player_luck">
+            Luck = x<span class={'resource_display'}>${player.luck.format()}</span>
+        </stat-display>
+    )
 }
 
 function calc(dt) {
@@ -23,9 +41,6 @@ function loop() {
 
 function setupHTML() {
     let all = document.getElementsByName("*")
-    if (!tmp.update[0]) {
-        resetTemp()
-    }
     for (const a=0;a<all.length;a++) {
         tmp.el[all[a].id] = all[a]
     }

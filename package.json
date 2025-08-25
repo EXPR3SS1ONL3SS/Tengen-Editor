@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@mui/material": "^7.3.1"
+    "@mui/material": "^7.3.1",
+    "vue": "^3.5.19"
   }
 }

@@ -1,0 +1,38 @@
+export const C = {
+    new(n,v,g,s,e,c,w) {Object.defineProperty(c, n, {
+        value:v,
+        get:g??function get(){return this[n]},
+        set:s??function set(vv){this[n]==v},
+        enumerable:e??false,
+        configurable:c??false,
+        writable:c??false,
+    })},
+     D0: new Decimal(0),
+     D1F: new Decimal(1/4),
+     D1T: new Decimal(1/3),
+     D1H: new Decimal(1/2),
+     D0_79163826381627: new Decimal(0.79163826381627),
+     D1: new Decimal(1),
+     E1: new Decimal('1e1'),
+     E2: new Decimal('1e2'),
+     E3: new Decimal('1e3'),
+     E9: new Decimal('1e9'),
+     E18: new Decimal('1e18'),
+     E33: new Decimal('1e33'),
+     E50: new Decimal('1e50'),
+     E100: new Decimal('1e100'),
+     E150: new Decimal('1e150'),
+     E225: new Decimal('1e225'),
+     NINF: new Decimal('1.8e308'),
+     E450: new Decimal('1e450'),
+     E700: new Decimal('1e700'),
+     E1000: new Decimal('1e1000'),
+     E1440: new Decimal('1e1440'),
+     E2000: new Decimal('1e2000'),
+     E3003: new Decimal('1e3003'),
+     MATH_HUGE: 1.8e308,
+     dINF: Decimal.dInf,
+     pTemplate: {
+        
+     }
+}

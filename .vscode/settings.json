@@ -1,3 +1,4 @@
 {
-    "editor.fontFamily": "Maple Mono"
+    "editor.fontFamily": "Mononoki",
+    "editor.fontLigatures": true
 }
